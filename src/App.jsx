@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Formik, Form, Field } from "formik"
 
 import styled from "@emotion/styled"
@@ -18,9 +19,11 @@ const Header = styled.header`
     border-radius: 5px;
   }
 `
-
 const App = () => {
 
+  const [photos, setPhotos] = useState([])
+
+  console.log({ photos })
   return (
     <div>
       <Header>
@@ -28,7 +31,14 @@ const App = () => {
           initialValues={{ search: '' }}
           onSubmit={async values => {
             // LLamaremos a una API (unplash.com)
-            console.log(values)
+            const URL = `https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`
+            const response = await fetch(URL, {
+              headers: {
+                'Authorization': 'Client-ID PBQ9p2o7wYdTd63NTmHYCzYbLiHPL7ye9XQSwuwUrSs'
+              }
+            })
+            const data = await response.json()
+            setPhotos(data.results)
           }}
         >
           <Form>
