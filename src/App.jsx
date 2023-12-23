@@ -19,9 +19,20 @@ const Header = styled.header`
     border-radius: 5px;
   }
 `
+const ContainerPhotos = styled.div`
+
+`
+
+const CenterPhotos = styled.div`
+
+`
 const App = () => {
 
   const [photos, setPhotos] = useState([])
+
+  const open = url => {
+    window.open(url)
+  }
 
   console.log({ photos })
   return (
@@ -44,9 +55,22 @@ const App = () => {
           <Form>
             <Field name='search' />
           </Form>
-
         </Formik >
       </Header>
+
+      <ContainerPhotos>
+        <CenterPhotos>
+          {photos.map(photo => (
+            <article
+              key={photo.id}
+              onClick={() => open(photo.links.html)}
+            >
+              <img src={photo.urls.regular} />
+              <p>{[photo.description, photo.alt_description].join(' - ')}</p>
+            </article>
+          ))}
+        </CenterPhotos>
+      </ContainerPhotos>
     </div>
   )
 }
