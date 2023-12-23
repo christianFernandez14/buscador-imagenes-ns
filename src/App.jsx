@@ -20,11 +20,39 @@ const Header = styled.header`
   }
 `
 const ContainerPhotos = styled.div`
-
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
 `
 
 const CenterPhotos = styled.div`
+  column-count: 3;
+  width: 1200px;
+`
+const Article = styled.article`
+  display: inline-block;
+  width: 370px;
+  transition: box-shadow .2s ease;
+  margin: 40px 10px 0 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 
+  img {
+    width: inherit;
+    border-radius: 5px 5px 0 0;
+  }
+
+  p {
+    margin: 10px 15px
+  }
+
+  :hover{
+    box-shadow: 0 3px 5px rgb(0,0,0, .2);
+  }
+   
+
+  
 `
 const App = () => {
 
@@ -61,13 +89,13 @@ const App = () => {
       <ContainerPhotos>
         <CenterPhotos>
           {photos.map(photo => (
-            <article
+            <Article
               key={photo.id}
               onClick={() => open(photo.links.html)}
             >
               <img src={photo.urls.regular} />
               <p>{[photo.description, photo.alt_description].join(' - ')}</p>
-            </article>
+            </Article>
           ))}
         </CenterPhotos>
       </ContainerPhotos>
